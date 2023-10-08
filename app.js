@@ -37,7 +37,7 @@ var financeController = (function () {
   };
 
   var data = {
-    allItems: {
+    items: {
       inc: [],
       exp: [],
     },
@@ -47,14 +47,33 @@ var financeController = (function () {
       exp: 0,
     },
   };
+  return {
+    addItem: function (type, desc, val) {
+      var item, id;
+
+      if (data.items[type].length === 0) id = 1;
+      else {
+        data.items[type][data.items[type].length - 1].id + 1;
+      }
+
+      if (type === "inc") {
+        item = new Income(id, desc, val);
+      } else {
+        item = new Expense(id, desc, val);
+      }
+
+      data.items[type].push(item);
+    },
+  };
 })();
 
 // programiin holbogch controller
-var appController = (function (uiController, fnController) {
+var appController = (function (uiController, financeController) {
   var ctrlAddItem = function () {
     // 1t oruulah ugugduliig delgetsees olj awna
-    console.log(uiController.getInput());
+    var input = uiController.getInput();
     //2t olj awsan ugugduluu sanhuugiin controllert damjuulj hadgalna.
+    financeController.addItem(input.type, input.description, input.value);
     //3 web deeree tohiroh hesegt in gargana
     //4 tusuwiig tootsoolno
     //5 etssiin uldegdel tootsoog delgets deer gargana
