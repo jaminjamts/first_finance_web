@@ -7,6 +7,10 @@ var uiController = (function () {
     addBtn: ".add__btn",
     incomeList: ".income__list",
     expenseList: ".expenses__list",
+    tusuvLabel: ".budget__value",
+    incomeLabel: ".budget__income--value",
+    expenseLabel: ".budget__expenses--value",
+    percentageLabel: ".budget__expenses--percentage",
   };
 
   return {
@@ -32,6 +36,21 @@ var uiController = (function () {
         el.value = "";
       });
       fieldsArr[0].focus();
+    },
+
+    tusuvUzuuleh: function (tusuv) {
+      document.querySelector(DOMstrings.tusuvLabel).textContent = tusuv.tusuv;
+      document.querySelector(DOMstrings.incomeLabel).textContent =
+        tusuv.totalInc;
+      document.querySelector(DOMstrings.expenseLabel).textContent =
+        tusuv.totalExp;
+      if (tusuv.huwi !== 0) {
+        document.querySelector(DOMstrings.percentageLabel).textContent =
+          tusuv.huvi + "%";
+      } else {
+        document.querySelector(DOMstrings.percentageLabel).textContent =
+          tusuv.huwi;
+      }
     },
 
     addListItem: function (item, type) {
@@ -106,7 +125,7 @@ var financeController = (function () {
       // tusviig shineer tootsoolono
       data.tusuv = data.totals.inc - data.totals.exp;
       // orlogo zarlagiin huwiig tootsoolno
-      data.huwi = Math.round((data.totals.inc / data.totals.exp) * 100);
+      data.huwi = Math.round((data.totals.exp / data.totals.inc) * 100);
     },
     tusuviigAvah: function () {
       return {
@@ -158,7 +177,7 @@ var appController = (function (uiController, financeController) {
       //5 etssiin uldegdel tootsoog delgets deer gargana
       var tusuv = financeController.tusuviigAvah();
       //6 tusuviig delgetsed gargah
-      console.log(tusuv);
+      uiController.tusuvUzuuleh(tusuv);
     }
   };
 
@@ -179,6 +198,12 @@ var appController = (function (uiController, financeController) {
   return {
     init: function () {
       console.log("App started");
+      uiController.tusuvUzuuleh({
+        tusuv: 0,
+        huvi: 0,
+        totalInc: 0,
+        totalExp: 0,
+      });
       setupEventListeners();
     },
   };
