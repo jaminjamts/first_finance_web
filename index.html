@@ -13,14 +13,13 @@
       type="text/css"
     />
     <link type="text/css" rel="stylesheet" href="style.css" />
-    <title>Budgety</title>
+    <title>Тоо бодох</title>
   </head>
   <body>
     <div class="top">
       <div class="budget">
         <div class="budget__title">
-          Боломжит үлдэгдэл
-          <span class="budget__title--month">Өрхийн санхүү</span>:
+          <span class="budget__title--month"></span> Өрхийн санхүү:
         </div>
 
         <div class="budget__value"></div>
@@ -46,17 +45,21 @@
     <div class="bottom">
       <div class="add">
         <div class="add__container">
-          <select class="add__type">
+          <select class="add__type red-focus">
             <option value="inc" selected>+</option>
             <option value="exp">-</option>
           </select>
           <input
             type="text"
-            class="add__description"
+            class="add__description red-focus"
             placeholder="Add description"
           />
-          <input type="number" class="add__value" placeholder="Value" />
-          <button class="add__btn">
+          <input
+            type="number"
+            class="add__value red-focus"
+            placeholder="Value"
+          />
+          <button class="add__btn red">
             <i class="ion-ios-checkmark-outline"></i>
           </button>
         </div>
